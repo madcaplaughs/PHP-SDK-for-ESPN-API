@@ -1,0 +1,116 @@
+/**
+ * Copyright (c) 2012 Debarshi Kr. Banerjee, Laddu, Madcaplaughs.
+ * debarshi dot ban at gmail dot com
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License"); you may
+ * not use this file except in compliance with the License. You may obtain
+ * a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+ * WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+ * License for the specific language governing permissions and limitations
+ * under the License.
+ */
+
+Documentation for ESPN PHP SDK version 0.1 BETA
+_______________________________________________
+
+PLEASE NOTE: Read the ESPN API Documentation on how the API works @ http://developer.espn.com/docs
+
+
+Function setApiV($v)
+--------------------
+@Params $v - API Version. 
+Sets the ESPN API version to use. Default set to 'v1'
+
+
+Function getApiV()
+------------------
+@Returns - The version of the ESPN to use as string.
+
+
+Function setApiKey($apikey)
+---------------------------
+@Params $apikey - The API Key to use when making ESPN API calls.
+Sets the API Key. You must generate a key from http://developer.espn.com/member/register and use this command first before making any API calls.
+
+
+Function setOutputToRaw()
+-------------------------
+There are two types of ouput provided by this SDK. One is in curated form which excludes all the fields returned by the api call. If you want all the fields as returned by the API use this command. By default it is set to false so by running this command you set it to true. See example-four.php
+
+
+Function resetOutput()
+----------------------
+Resets the ouput from raw to the curated mode.
+
+
+Function listAllSupportedSports()
+---------------------------------
+See the sports which are supported by the ESPN API.
+@Returns the name and id of all the sports in a multi-dimensional array.
+Example:
+   $allsports = $api->listAllSupportedSports();
+   The above will populate as $allsports[0]['name'], $allsports[0]['id'] >> $allsports[xn]['name'], $allsports[xn]['id']
+
+
+Function listAllLeagues($sport)
+-------------------------------
+@Param $sport - The name of the sport
+This function returns all the leagues listed under each sport.
+@Returns - Name, Abbreviation, id, short name in a multi-dimensional array
+Example:
+   $all_leagues[xn]['name'], $all_leagues[xn]['abbr'], $all_leagues[xn]['id'], $all_leagues[xn]['shortName']
+
+
+All of the functions below return in same format - return structure given at the end
+
+Function getTopHeadLines
+------------------------
+Retrieves top stories as shown on ESPN.com home page. Only applicable to /sports/ resource.
+
+
+Function getHeadLines
+---------------------	
+@Param Name of sport, Name of division - both fields are optional. When nothing is mentioned it returns all headlines.
+Retrieves top stories as selected by ESPN editorial staff.
+Example: $api->getHeadLines() | $api->getHeadLines('soccer') | $api->getHeadLines('basketball','nba')
+
+
+Function getNews
+----------------
+Same as getHeadLines.
+Retrieves a stream of all news for current date.
+
+
+Function getNewsOn
+------------------
+@Params Year:fomrat yyyy, month:format mm, date:format dd followed by Name of sport, Name of division - both fields are optional. When nothing is mentioned it returns all news.
+Retrieves news for a specific date.
+See example-five.php
+
+Function getTeamNews($id)
+-------------------------
+@Param id - Team ID
+Retrieves stories about a particular team.
+
+
+Function getAtheleteNews($id)
+-----------------------------
+@Param id - Athlete ID
+Retrieves stories about a particular player/athlete.
+
+
+Returns for all the above functions - a multi-dimensional array
+@Returns headline, keywords (array), lastModified, web_link, mobile_link, id, title, description.
+
+
+Function getStory($id)
+----------------------
+@Params id - Story ID
+Returns a story with details and related articles to the story,
+@Returns a raw return, all the fields returned by the ESPN API. 
+
